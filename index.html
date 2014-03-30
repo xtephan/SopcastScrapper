@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <title>Sopcast URL</title>
+  </head>
+  <body>
+    
+	<style>
+		.custab{
+		    border: 1px solid #ccc;
+		    padding: 5px;
+		    margin: 5% 0;
+		    box-shadow: 3px 3px 2px #ccc;
+		    transition: 0.5s;
+			margin-top: 200px;
+		    }
+		.custab:hover{
+		    box-shadow: 3px 3px 0px transparent;
+		    transition: 0.5s;
+		    }
+	</style>
+	
+	<div class="container">
+	    <div class="row col-md-6 col-md-offset-3 custyle">
+	    <table class="table table-striped custab" id="url-table">
+		    <thead>
+		    	<a href="#" id="trigger_refresh" class="btn btn-primary btn-xs pull-right">Refresh data</a>
+		        <tr>
+		            <th>No</th>
+		            <th>Title</th>
+		            <th>URL</th>
+		        </tr>
+		    </thead>
+	        <tr class="matrix" style="display: none">
+	            <td class="cnt">1</td>
+	            <td class="title">Title</td>
+	            <td><a href="#">Link</a></td>
+	        </tr>
+    	</table>
+	    </div>
+	</div>
+	
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<script src="/node_modules/socket.io/node_modules/socket.io-client/dist/socket.io.min.js"></script>
+	
+	<script type="text/javascript">
+	$(function(){
+		
+		var socket = io.connect('http://sopcast.unserialized.dk:1337');
+  		socket.on('url_updated', function (data) {
+
+			for( i=0; i<data.length; i++ ) {
+
+				var _clone = $(".matrix").clone();
+				_clone.find(".cnt").html( i+1 );
+				_clone.find(".title").html( data[i].title );
+				_clone.find("a").html( data[i].url );
+				_clone.find("a").attr( 'href', data[i].url );
+				
+				if( data[i].source == "http://www.cool-tv.ro/ch/protv-s2.html" ) {
+					_clone.addClass("success");
+				}
+				
+				_clone.removeClass("matrix");
+				_clone.show();
+				
+				$("#url-table >tbody").append(_clone);
+				
+			}
+
+		});
+		
+		
+		$("#trigger_refresh").click(function(){
+			$(this).html("Working...");
+			socket.emit('update_url');
+			
+			setTimeout(function(){ location.reload() },2000);
+		
+		});
+		
+	});
+	
+	</script>
+  </body>
+</html>

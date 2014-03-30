@@ -1,0 +1,17 @@
+/* TEAM */
+	Chef:Stefan Fodor
+	Contact: stefan [at] unserialized dot dk
+	From:Odense, Denmark
+
+
+/* THANKS */
+
+	http://www.cool-tv.ro
+	http://www.sopcast.ro/tv/
+	Sorry bros, you had to take one for the team. You are not MAC compatible.
+
+/* SITE */
+	Last update:2014/03/03
+	Language: English
+	Doctype:HTML5
+	IDE: Aptana

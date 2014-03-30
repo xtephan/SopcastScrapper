@@ -1,0 +1,11 @@
+This is a special place where hackers are permitted to make changes,
+well, actually only additions, appending their name, date, location,
+contact and info as they choose.
+
+0.	Name: John Doe  
+	Location: ---
+	Date: YYYY/MM/DD
+	Contact: ---
+	Website: http://example.com
+
+1.

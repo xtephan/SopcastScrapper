@@ -1,0 +1,4 @@
+error/*
+stats/*
+nohup.out
+node_modules/*
